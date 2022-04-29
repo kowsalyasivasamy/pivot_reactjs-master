@@ -11372,14 +11372,13 @@ class Dashboard extends Component {
       return eval(expression);
     } catch (e) {
       let before = JSON.parse(JSON.stringify(expression));
-      before.split(/[\(,\),\/,\*,\+,\-,\=]+/).map((element) => {
+      before.split(/[\(,\),\/,\*,\+,\-,\=]+/).map((element, index) => {
         if (element !== "" && element !== " ") {
           expression = expression.replace(element, parseInt(element));
+        } else {
+          expression = index === 0 ? '0' + expression : expression + '0';
         }
       });
-      // console.log(
-      //   "evaluateExpression() => octal before: ", before, "octal after: ", expression
-      // );
       return eval(expression);
     }
   };
